@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const CategoryBtnWrapper = styled.button<{ isSelect: boolean }>`
+export const CategoryBtnWrapper = styled.button<{ isSelect?: boolean }>`
 	width: fit-content;
 	padding: 8px 1rem;
 	background-color: ${({ isSelect }) => (isSelect ? "#A3F2D8" : "#eff1ee")};
@@ -25,10 +25,20 @@ export const Modal = styled.div`
 	border-top-right-radius: 16px;
 	border-top-left-radius: 16px;
 	/* width: 100%;  TODO*/
+	height: 500px;
 	width: 400px;
 	position: fixed;
 	bottom: 0;
 	padding-top: 30px;
 	padding-left: 21px;
 	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+`;
+
+export const ApplyFilter = styled.button`
+	width: 90%;
+	height: 44px;
+	border-radius: 24px;
+	background-color: #a3f2d8;
+	position: absolute;
+	bottom: 47px;
 `;

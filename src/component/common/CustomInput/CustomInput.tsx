@@ -3,10 +3,12 @@ import Typography from "../Typography/Typography";
 import Row from "../Layouts/Row";
 import useFormatMoney from "../../../hook/useFormatMoney";
 import { useState } from "react";
+import { atom, useAtom } from "jotai";
 
+export const inputMoney = atom(0);
 export default function CustomInput() {
-	const { formatMoney } = useFormatMoney();
-	const [inputMoney, setInputMoney] = useState("");
+	const [money, setMoney] = useAtom(inputMoney);
+
 	return (
 		<InputMoneyWrap horizonAlign="distribute" onClick={(ev) => ev.stopPropagation()}>
 			<Input
@@ -16,8 +18,9 @@ export default function CustomInput() {
 				onInput={(e) => {
 					e.currentTarget.value.replace(/[^0-9]/g, "");
 				}}
-				onChange={(e) => setInputMoney(e.currentTarget.value)}
-				value={formatMoney(inputMoney)}
+				maxLength={9}
+				onChange={(e) => setMoney(Number(e.target.value.replace(",", "")))}
+				value={money.toLocaleString("ko-KR")}
 			/>
 			<Typography typoSize="H6_B" color="neutral100">
 				{"원"}

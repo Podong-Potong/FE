@@ -1,7 +1,15 @@
 import styled from "styled-components";
 import { GOAL_CATEGORIES } from "../../constants/goal";
+import axios from "axios";
 
 export function GoalInput() {
+	const handleEnroll = () => {
+		axios.post("http://121.133.3.6:8081/api/goal", {
+			amount: 0,
+			category: "FOOD",
+			date: new Date()
+		});
+	};
 	return (
 		<Container>
 			{GOAL_CATEGORIES.map((category) => (
@@ -14,7 +22,7 @@ export function GoalInput() {
 					</InputContainer>
 				</CategoryContainer>
 			))}
-			<SubmitButton>등록하기</SubmitButton>
+			<SubmitButton onClick={() => handleEnroll()}>등록하기</SubmitButton>
 		</Container>
 	);
 }

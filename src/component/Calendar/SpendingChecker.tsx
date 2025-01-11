@@ -1,35 +1,16 @@
 import styled from "styled-components";
 import { ReactComponent as PlusIcon } from "../../assets/icons/ci_add-plus-circle.svg";
 import { useNavigate } from "react-router-dom";
+import { CategoryType } from "../../type/category";
 
-const mockData = [
-	{
-		categoryName: "💄 뷰티",
-		usageTime: "18:01",
-		usagePlace: "올리브영 성수",
-		amount: "35,870원"
-	},
-	{
-		categoryName: "☕ 카페",
-		usageTime: "14:30",
-		usagePlace: "스타벅스 종로",
-		amount: "8,900원"
-	},
-	{
-		categoryName: "🍔 외식",
-		usageTime: "12:15",
-		usagePlace: "맥도날드 강남",
-		amount: "12,500원"
-	},
-	{
-		categoryName: "📚 도서",
-		usageTime: "19:45",
-		usagePlace: "교보문고 광화문",
-		amount: "22,000원"
-	}
-];
+type mockData = {
+	category: string;
+	date: string;
+	usagePlace: string;
+	amount: number;
+};
 
-export default function SpendingChecker() {
+export default function SpendingChecker({ totalSpend, mockData }: { totalSpend: string; mockData: mockData[] }) {
 	const navigate = useNavigate();
 	return (
 		<Container>
@@ -40,21 +21,24 @@ export default function SpendingChecker() {
 				</TextContainer>
 				<TextContainer>
 					<SpendingText>총 소비</SpendingText>
-					<SpendingMoney>3,000원</SpendingMoney>
+					<SpendingMoney>{Number(totalSpend).toLocaleString("kr-KR")}</SpendingMoney>
 				</TextContainer>
 			</SpendingContainer>
 			<HistoryContainer>
 				<HistoryTitle>권장 소비에서 71%나 덜 썼어요</HistoryTitle>
-				{mockData.map((item, index) => (
-					<CategoryContainer key={index}>
-						<CategoryName>{item.categoryName}</CategoryName>
-						<UsageContainer>
-							<Text>{item.usageTime}</Text>
-							<Text>{item.usagePlace}</Text>
-						</UsageContainer>
-						<MoneyText>{item.amount}</MoneyText>
-					</CategoryContainer>
-				))}
+				{mockData.map((item, index) => {
+					const category = CategoryType.find((category) => category.type === item.category);
+					return (
+						<CategoryContainer key={index}>
+							<CategoryName>{category?.name}</CategoryName>
+							<UsageContainer>
+								<Text>{item.date}</Text>
+								<Text>{item.usagePlace}</Text>
+							</UsageContainer>
+							<MoneyText>{Number(item.amount).toLocaleString("kr-KR")}</MoneyText>
+						</CategoryContainer>
+					);
+				})}
 			</HistoryContainer>
 			<AddButton onClick={() => navigate("/writeSpendHabit")}>
 				<PlusIcon />
