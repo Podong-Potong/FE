@@ -8,6 +8,7 @@ import { Color } from "../../../type/color";
 type TypographTypoType =
 	| "H5"
 	| "H6"
+	| "H6_B"
 	| "Subtitle1"
 	| "Subtitle2"
 	| "Button"
@@ -25,7 +26,8 @@ const TypoMap = {
 	Body1: S.Body1,
 	Body2: S.Body2,
 	Caption: S.Caption,
-	Overline: S.Overline
+	Overline: S.Overline,
+	H6_B: S.H6_B
 };
 
 const Typography = ({

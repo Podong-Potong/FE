@@ -9,6 +9,10 @@ export const theme = {
 	primary60: "#0DA484",
 	primary50: "#00876C",
 	primary40: "#006B56",
+	primaryContainer: "#A3F2D8",
+	primaryFixed: "#A3F2D8",
+	primaryFixedDim: "#87D6BC",
+	primary: "#126B56",
 
 	//Neutral Colors
 	neutral98: "#F8FAF7",
@@ -19,6 +23,7 @@ export const theme = {
 	neutral60: "#8E918F",
 	neutral50: "#747875",
 	neutral40: "#5C5F5D",
+	neutral00: "#fff",
 
 	//Neutral Varient Colors
 	neutralVarient98: "#F2FCF6",
@@ -28,5 +33,14 @@ export const theme = {
 	neutralVarient70: "#A4ADA8",
 	neutralVarient60: "#89938E",
 	neutralVarient50: "#6F7975",
-	neutralVarient40: "#57605C"
+	neutralVarient40: "#57605C",
+
+	//Error
+	error: "#BA1A1A",
+	onError: "#FFDAD6",
+
+	//Surface
+	surfaceVarient: "#DBE5DF",
+	surfaceDim: "#D5DBD7",
+	surfaceContainer: "#E9EFEB"
 };
