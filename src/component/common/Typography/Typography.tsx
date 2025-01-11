@@ -11,6 +11,7 @@ type TypographTypoType =
 	| "H6_B"
 	| "Subtitle1"
 	| "Subtitle2"
+	| "Subtitle3"
 	| "Button"
 	| "Body1"
 	| "Body2"
@@ -22,6 +23,7 @@ const TypoMap = {
 	H6: S.H6,
 	Subtitle1: S.Subtitle1,
 	Subtitle2: S.Subtitle2,
+	Subtitle3: S.Subtitle3,
 	Button: S.Button,
 	Body1: S.Body1,
 	Body2: S.Body2,

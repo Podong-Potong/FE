@@ -30,6 +30,12 @@ export const Subtitle2 = styled(BaseTypography)`
 	line-height: 21px;
 `;
 
+export const Subtitle3 = styled(BaseTypography)`
+	font-size: 14px;
+	font-weight: 700;
+	line-height: 21px;
+`;
+
 export const Button = styled(BaseTypography)`
 	font-size: 14.5px;
 	font-weight: 400;

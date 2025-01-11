@@ -14,6 +14,7 @@ const MyPage = NamedLazy(() => import("../pages/MyPage"), "MyPage");
 const Goal = NamedLazy(() => import("../pages/Goal"), "Goal");
 const CalendarCategory = NamedLazy(() => import("../pages/CalendarCategory"), "CalendarCategory");
 const StartChallenge = NamedLazy(() => import("../pages/StartChallenge"), "StartChallenge");
+const WriteSpendHabit = NamedLazy(() => import("../pages/WriteSpendHabit"), "WriteSpendHabit");
 
 export const router = createBrowserRouter([
 	{
@@ -91,6 +92,14 @@ export const router = createBrowserRouter([
 				element: (
 					<Suspense fallback={<div>Loading...</div>}>
 						<StartChallenge />
+					</Suspense>
+				)
+			},
+			{
+				path: "/writeSpendHabit",
+				element: (
+					<Suspense fallback={<div>Loading...</div>}>
+						<WriteSpendHabit />
 					</Suspense>
 				)
 			}
