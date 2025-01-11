@@ -1,7 +1,8 @@
 import { createGlobalStyle } from "styled-components";
+import reset from "styled-reset";
 
-export const GlobalStyle = createGlobalStyle`
-  * { box-sizing : border-box }
+const GlobalStyles = createGlobalStyle` 
+  ${reset} 
 
   @font-face {
     font-family: 'Pretendard';
@@ -38,9 +39,29 @@ export const GlobalStyle = createGlobalStyle`
       font-style: normal;
   }
 
-  body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Pretendard', sans-serif;
-  }
+    a{
+        text-decoration: none;
+        color: inherit;
+    }
+    *{
+        box-sizing: border-box;
+    }
+    input, textarea { 
+      -moz-user-select: auto;
+      -webkit-user-select: auto;
+      -ms-user-select: auto;
+      user-select: auto;
+    }
+    input:focus {
+      outline: none;
+    }
+
+    button {
+      border: none;
+      background: none;
+      padding: 0;
+      cursor: pointer;
+    }
 `;
+
+export default GlobalStyles;

@@ -1,14 +1,15 @@
 import styled from "styled-components";
 
 export const MenuList = styled.ul`
+	width: 100%;
+	height: 100px;
+	background-color: white;
 	position: fixed;
 	bottom: 0px;
-	list-style: none;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	padding: 12px 43.5px 50px 43.5px;
-	margin: 0;
+	z-index: 999;
 `;
 
 export const MenuItem = styled.li.withConfig({
