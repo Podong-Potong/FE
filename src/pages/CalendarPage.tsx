@@ -5,12 +5,11 @@ import "react-calendar/dist/Calendar.css";
 import moment from "moment";
 import { ReactComponent as TriangleWarningIcon } from "../assets/icons/ci_triangle-warning.svg";
 import { ReactComponent as CloverIcon } from "../assets/icons/clover.svg";
-import SpendingChecker from "../component/Calendar/SpendingChecker";
-import { Link } from "react-router-dom";
+import SpendingChecker, { RecommendAtom } from "../component/Calendar/SpendingChecker";
 import { NavigationBar } from "../component/common/Layouts/NavigationBar";
 import axios from "axios";
 import { useQuery } from "react-query";
-import { atom, useAtom } from "jotai";
+import { atom, useAtom, useAtomValue } from "jotai";
 
 const mockData = [
 	{ date: "2025-01-06", status: "failure" },
@@ -22,9 +21,11 @@ const mockData = [
 	{ date: "2025-01-27", status: "failure" },
 	{ date: "2025-01-29", status: "success" }
 ];
+export const SelectedDateAtom = atom<string | null>("");
 
 export function CalendarPage() {
 	const [hasFetched, setHasFetched] = useState(false);
+	const [selectedDate, setSelectedDate] = useAtom(SelectedDateAtom);
 
 	const { data, isLoading } = useQuery(
 		["spendingList"],
@@ -42,21 +43,38 @@ export function CalendarPage() {
 			}
 		}
 	);
-	const [selectedDate, setSelectedDate] = useState<string | null>(null);
+	const recommendAtom = useAtomValue(RecommendAtom);
+	const aggregatedData = {} as any;
+	data?.data.forEach((item: any) => {
+		if (!aggregatedData[item.date]) {
+			aggregatedData[item.date] = 0;
+		}
+
+		if (item.type === "INCOME") {
+			aggregatedData[item.date] += item.amount;
+		} else {
+			aggregatedData[item.date] -= item.amount;
+		}
+	});
+
+	const transformedData = Object.entries(aggregatedData).map(([date, amount]) => ({
+		date,
+		status: (amount as number) >= recommendAtom ? "success" : "failure"
+	}));
 
 	const totalSpend = data?.data
 		?.filter((val: { type: string }) => val.type === "EXPENSE")
 		.filter((val: { date: string | undefined }) => val.date === selectedDate)
 		.reduce((acc: number, cur: { amount: number }) => acc + cur.amount, 0);
 
-	const getDateStatus = (date: any) => {
-		const found = mockData.find((item) => item.date === date.toISOString().split("T")[0]);
-		return found ? found.status : null;
-	};
-
 	const handleDateClick = (date: Date) => {
 		const formattedDate = moment(date).format("YYYY-MM-DD");
 		setSelectedDate(formattedDate);
+	};
+
+	const getDateStatus = (date: any) => {
+		const found = transformedData.find((item: any) => item.date === date.toISOString().split("T")[0]);
+		return found ? found.status : null;
 	};
 
 	const getClassNameForTile = (date: Date) => {
@@ -65,6 +83,7 @@ export function CalendarPage() {
 		return status === "failure" ? "failure-active" : status === "success" ? "success-active" : "";
 	};
 
+	console.log(";;;st", transformedData);
 	return (
 		!isLoading && (
 			<>
@@ -73,17 +92,24 @@ export function CalendarPage() {
 						<Header>
 							<CounterContainer>
 								<StatusContainer>
+									{/* {mockData.status === "failure"} */}
 									<TriangleWarningIcon />
-									<CountText>{mockData.filter((item) => item.status === "failure").length}</CountText>
+									{/* error */}
+									<CountText>
+										{transformedData.filter((item) => item.status === "failure").length}
+									</CountText>
 								</StatusContainer>
 								<StatusContainer>
 									<CloverIcon />
-									<CountText>{mockData.filter((item) => item.status === "success").length}</CountText>
+									{/* posi */}
+									<CountText>
+										{transformedData.filter((item) => item.status === "success").length}
+									</CountText>
 								</StatusContainer>
 							</CounterContainer>
-							<Link to="/calendar/goal">
+							{/* <Link to="/calendar/goal">
 								<PlusButton>월 목표 소비액</PlusButton>
-							</Link>
+							</Link> */}
 						</Header>
 						<StyledCalendar
 							tileContent={({ date }) => {
@@ -112,7 +138,7 @@ export function CalendarPage() {
 							formatDay={() => ""}
 						/>
 					</CalendarContainer>
-					<SpendingChecker totalSpend={totalSpend} mockData={data?.data} />
+					<SpendingChecker totalSpend={totalSpend} mockData={data?.data} clickDate={selectedDate} />
 					<NavigationBar />
 				</Container>
 			</>

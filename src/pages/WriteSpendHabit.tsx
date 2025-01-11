@@ -17,6 +17,7 @@ import {
 import CategoryBtn from "../component/Calender/WriteSpendHabit/SelectCategory/CategoryBtn";
 import { CategoryType, SaveCategoryType } from "../type/category";
 import { useNavigate } from "react-router-dom";
+import { SelectedDateAtom } from "./CalendarPage";
 
 export const WriteSpendHabit = () => {
 	const [isOpenModalState, setIsOpenModalState] = useAtom(isOpenModal);
@@ -24,6 +25,7 @@ export const WriteSpendHabit = () => {
 	const selectBtn = useAtomValue(selectSpentType);
 	const money = useAtomValue(inputMoney);
 	const navigate = useNavigate();
+	const SelectedDate = useAtomValue(SelectedDateAtom);
 
 	const handleData = () => {
 		if (selectBtn === "out") {
@@ -33,11 +35,11 @@ export const WriteSpendHabit = () => {
 					description: "붕어빵",
 					amount: money,
 					category: selectCategory?.type,
-					date: "2025-01-11",
+					date: SelectedDate,
 					type: "EXPENSE"
 				})
 				.then(() => {
-					navigate("/calender");
+					navigate("/");
 				});
 		} else {
 			const selectCategory = SaveCategoryType.find((val) => val.name === selectCategoryAtom);
@@ -46,11 +48,11 @@ export const WriteSpendHabit = () => {
 					description: "붕어빵",
 					amount: money,
 					category: selectCategory?.type,
-					date: "2025-01-11",
+					date: SelectedDate,
 					type: "INCOME"
 				})
 				.then(() => {
-					navigate("/calender");
+					navigate("/");
 				});
 		}
 	};
@@ -59,7 +61,7 @@ export const WriteSpendHabit = () => {
 		<>
 			<Column gap={10} style={{ marginBottom: "9px" }}>
 				<Typography typoSize="Subtitle3" color="neutral60">
-					{"01/16 소비 내역"}
+					{SelectedDate + " 소비 내역"}
 				</Typography>
 				<SpendKindBtn />
 			</Column>
@@ -77,7 +79,7 @@ export const WriteSpendHabit = () => {
 						{"거래 일시"}
 					</Typography>
 					<Typography typoSize="Subtitle2" color="neutral60">
-						{"클릭한 날짜"}
+						{SelectedDate}
 					</Typography>
 				</Row>
 				<Row gap={10}>

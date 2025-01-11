@@ -31,7 +31,6 @@ export default function SelectCategory() {
 					)}
 
 					<Close
-						style={{ marginRight: "25px" }}
 						onClick={() => {
 							setIsOpenModalState(false);
 							setSelectCategoryAtom("");
