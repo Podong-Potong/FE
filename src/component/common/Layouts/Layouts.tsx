@@ -1,17 +1,16 @@
-import { useState } from "react";
-
-import { Outlet, useLocation } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import { NavigationBar } from "./NavigationBar";
 import styled from "styled-components";
-import Column from "./Column";
+import { Header } from "./Header";
 
 export const Layout = () => {
 	return (
 		<AppWrapper>
+			<Header />
 			<MainWrapper>
-				<NavigationBar />
 				<Outlet />
 			</MainWrapper>
+			<NavigationBar />
 		</AppWrapper>
 	);
 };
@@ -20,9 +19,15 @@ const AppWrapper = styled.div`
 	width: 400px;
 	height: 100vh;
 	margin: 0 auto;
-	padding: 1rem;
 	border: 1px solid lightgray;
-	margin-bottom: 96px;
+	display: flex;
+	flex-direction: column;
+	position: relative;
 `;
 
-const MainWrapper = styled.div``;
+const MainWrapper = styled.div`
+	flex: 1;
+	padding: 1rem;
+	margin-bottom: 96px;
+	overflow-y: auto;
+`;

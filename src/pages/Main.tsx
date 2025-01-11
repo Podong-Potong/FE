@@ -1,4 +1,3 @@
-import styled from "styled-components";
 import ConsumHistoryBox from "../component/Main/ConsumHistoryBox.tsx/ConsumHistory";
 import Column from "../component/common/Layouts/Column";
 import { NoProgressCard } from "../component/Home/NoProgressCard";
@@ -8,7 +7,6 @@ export function Main() {
 	return (
 		<>
 			<Column gap={20}>
-				<LogoSample />
 				{/* 조건부 렌더링으로 챌린지가 있을 때와 없을 때 두 가지 상태를 보여줍니다. */}
 				<NoProgressCard />
 				{/* <ProgressCard /> */}
@@ -18,9 +16,3 @@ export function Main() {
 		</>
 	);
 }
-
-const LogoSample = styled.div`
-	width: 36px;
-	height: 36px;
-	background: #d9d9d9;
-`;
