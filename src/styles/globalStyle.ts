@@ -70,6 +70,11 @@ const GlobalStyles = createGlobalStyle`
       padding: 0;
       cursor: pointer;
     }
+
+    .react-calendar {
+      border: none !important;
+      margin-bottom: 1rem;
+    }
 `;
 
 export default GlobalStyles;
