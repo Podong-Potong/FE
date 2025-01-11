@@ -8,6 +8,7 @@ export const MenuList = styled.ul`
 	justify-content: center;
 	align-items: center;
 	padding: 12px 43.5px 50px 43.5px;
+	margin: 0;
 `;
 
 export const MenuItem = styled.li.withConfig({
@@ -17,9 +18,8 @@ export const MenuItem = styled.li.withConfig({
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	gap: 20px;
-	padding: 12px 20px;
-	border-radius: 8px;
-	margin-bottom: 16px;
+	gap: 8px;
+	padding: 0px 24px;
+	white-space: nowrap;
 	cursor: pointer;
 `;

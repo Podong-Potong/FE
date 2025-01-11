@@ -7,7 +7,7 @@ import Column from "./Column";
 
 export const Layout = () => {
 	return (
-		<AppWrapper horizonAlign="center" verticalAlign="center">
+		<AppWrapper>
 			<MainWrapper>
 				<NavigationBar />
 				<Outlet />
@@ -16,10 +16,11 @@ export const Layout = () => {
 	);
 };
 
-const AppWrapper = styled(Column)`
-	/* 어플 전체 비율 맞춰서 넣으면 될듯 */
-	width: 100%;
+const AppWrapper = styled.div`
+	width: 400px;
 	height: 100vh;
+	margin: 0 auto;
+	border: 1px solid lightgray;
 `;
 
 const MainWrapper = styled.div``;
