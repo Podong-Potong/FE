@@ -20,7 +20,9 @@ const AppWrapper = styled.div`
 	width: 400px;
 	height: 100vh;
 	margin: 0 auto;
+	padding: 1rem;
 	border: 1px solid lightgray;
+	margin-bottom: 96px;
 `;
 
 const MainWrapper = styled.div``;

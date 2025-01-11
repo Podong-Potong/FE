@@ -81,10 +81,11 @@ const TextContainer = styled.div`
 
 const Progress = styled.p`
 	color: #126b56;
-	font-size: 1.7rem;
+	font-size: 1.3rem;
 	font-weight: bold;
 `;
 
 const ProgressText = styled.p`
-	font-size: 1.4rem;
+	font-size: 1rem;
+	white-space: nowrap;
 `;
