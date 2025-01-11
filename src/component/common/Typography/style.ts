@@ -24,9 +24,9 @@ export const Subtitle1 = styled(BaseTypography)`
 `;
 
 export const Subtitle2 = styled(BaseTypography)`
-	font-size: 14.5px;
+	font-size: 14px;
 	font-weight: 400;
-	letter-spacing: 0.001em;
+	line-height: 21px;
 `;
 
 export const Button = styled(BaseTypography)`
@@ -47,9 +47,15 @@ export const Body2 = styled(BaseTypography)`
 `;
 
 export const Caption = styled(BaseTypography)`
-	font-size: 13.86px;
-	font-weight: 400;
-	letter-spacing: 0.004em;
+	font-size: 12px;
+	font-weight: 600;
+	line-height: 14.32px;
+`;
+
+export const H6_B = styled(BaseTypography)`
+	font-size: 20px;
+	font-weight: 700;
+	line-height: 25px;
 `;
 
 export const Overline = styled(BaseTypography)`
