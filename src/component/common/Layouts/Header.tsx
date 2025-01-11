@@ -20,8 +20,8 @@ const Container = styled.header`
 	position: sticky;
 	top: 0;
 	width: 100%;
-	height: 4rem;
-	padding: 0.5rem 0;
+	height: 4.5rem;
+	padding: 0.75rem;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;

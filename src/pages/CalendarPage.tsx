@@ -7,6 +7,7 @@ import { ReactComponent as TriangleWarningIcon } from "../assets/icons/ci_triang
 import { ReactComponent as CloverIcon } from "../assets/icons/clover.svg";
 import SpendingChecker from "../component/Calendar/SpendingChecker";
 import { Link } from "react-router-dom";
+import { NavigationBar } from "../component/common/Layouts/NavigationBar";
 
 const mockData = [
 	{ date: "2025-01-06", status: "failure" },
@@ -81,6 +82,7 @@ export function CalendarPage() {
 				/>
 			</CalendarContainer>
 			<SpendingChecker />
+			<NavigationBar />
 		</Container>
 	);
 }

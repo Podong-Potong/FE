@@ -3,8 +3,6 @@ import { createBrowserRouter } from "react-router-dom";
 import { NamedLazy } from "../utils/NamedLazy";
 import { Layout } from "../component/common/Layouts/Layouts";
 import { Challenge } from "../pages/Challenge";
-import { Header } from "../component/common/Layouts/Header";
-import { ReactComponent as LeftIcon } from "../assets/icons/ci_chevron-left.svg";
 
 // 동적으로 로드할 페이지
 const Main = NamedLazy(() => import("../pages/Main"), "Main");
@@ -24,9 +22,6 @@ export const router = createBrowserRouter([
 				path: "/",
 				element: (
 					<Suspense fallback={<div>Loading...</div>}>
-						<Header
-							leftIcon={<div style={{ width: "36px", height: "36px", background: "#D9D9D9" }}></div>}
-						/>
 						<Main />
 					</Suspense>
 				)
@@ -38,7 +33,6 @@ export const router = createBrowserRouter([
 						path: "",
 						element: (
 							<Suspense fallback={<div>Loading...</div>}>
-								<Header leftIcon={<LeftIcon />} />
 								<CalendarPage />
 							</Suspense>
 						)
@@ -55,7 +49,6 @@ export const router = createBrowserRouter([
 						path: "category",
 						element: (
 							<Suspense fallback={<div>Loading...</div>}>
-								<Header leftIcon={<LeftIcon />} />
 								<CalendarCategory />
 							</Suspense>
 						)
@@ -82,7 +75,6 @@ export const router = createBrowserRouter([
 				path: "/challenge",
 				element: (
 					<Suspense fallback={<div>Loading...</div>}>
-						<Header leftIcon={<LeftIcon />} />
 						<Challenge />
 					</Suspense>
 				)

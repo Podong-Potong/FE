@@ -1,9 +1,4 @@
 import styled from "styled-components";
-import { Header } from "../component/common/Layouts/Header";
-import { ReactComponent as LeftIcon } from "../assets/icons/ci_chevron-left.svg";
-import { ReactComponent as MenuIcon } from "../assets/icons/Menu Hamburger.svg";
-import { useState } from "react";
-import { Link } from "react-router-dom";
 import { GoalInput } from "../component/Goal/GoalInput";
 
 export function Goal() {
@@ -15,7 +10,6 @@ export function Goal() {
 
 	return (
 		<>
-			<Header leftIcon={<LeftIcon />} rightIcon={<MenuIcon />} />
 			<Container>
 				<Title>월 목표 소비액을 설정해봐요</Title>
 				<GoalInput />

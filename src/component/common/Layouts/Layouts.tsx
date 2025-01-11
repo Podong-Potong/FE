@@ -1,10 +1,12 @@
 import { Outlet } from "react-router-dom";
-import { NavigationBar } from "./NavigationBar";
 import styled from "styled-components";
+import { Header } from "./Header";
+import { ReactComponent as LogoIcon } from "../../../assets/icons/logo.svg";
 
 export const Layout = () => {
 	return (
 		<AppWrapper>
+			<Header leftIcon={<LogoIcon />} />
 			<MainWrapper>
 				<Outlet />
 			</MainWrapper>
