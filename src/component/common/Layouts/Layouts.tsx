@@ -1,12 +1,10 @@
 import { Outlet } from "react-router-dom";
 import { NavigationBar } from "./NavigationBar";
 import styled from "styled-components";
-import { Header } from "./Header";
 
 export const Layout = () => {
 	return (
 		<AppWrapper>
-			<Header />
 			<MainWrapper>
 				<Outlet />
 			</MainWrapper>
@@ -16,7 +14,7 @@ export const Layout = () => {
 };
 
 const AppWrapper = styled.div`
-	width: 400px; //나중에 지우기
+	width: 400px;
 	height: 100vh;
 	margin: 0 auto;
 	border: 1px solid lightgray;
