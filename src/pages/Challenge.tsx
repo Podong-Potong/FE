@@ -2,6 +2,7 @@ import styled from "styled-components";
 import PieChallenge from "../component/Challenge/PieChallenge";
 import BarChallenge from "../component/Challenge/BarChallenge";
 import ChallengeHistory from "../component/Challenge/ChallengeHistory";
+import { NavigationBar } from "../component/common/Layouts/NavigationBar";
 
 export function Challenge() {
 	return (

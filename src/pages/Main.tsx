@@ -2,6 +2,7 @@ import ConsumHistoryBox from "../component/Main/ConsumHistoryBox.tsx/ConsumHisto
 import Column from "../component/common/Layouts/Column";
 import { NoProgressCard } from "../component/Home/NoProgressCard";
 import { ProgressCard } from "../component/Home/ProgressCard";
+import { NavigationBar } from "../component/common/Layouts/NavigationBar";
 
 export function Main() {
 	return (
@@ -13,6 +14,7 @@ export function Main() {
 				<ConsumHistoryBox category="뮤지컬 및 영화" goal={300000} totalSpent={600000} categoryIcon="🎵" />
 				<ConsumHistoryBox category="뮤지컬 및 영화" goal={50000} totalSpent={24000} categoryIcon="🎵" />
 			</Column>
+			<NavigationBar />
 		</>
 	);
 }

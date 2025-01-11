@@ -8,7 +8,7 @@ export const Layout = () => {
 			<MainWrapper>
 				<Outlet />
 			</MainWrapper>
-			<NavigationBar />
+			{/* <NavigationBar /> */}
 		</AppWrapper>
 	);
 };
