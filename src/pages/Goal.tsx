@@ -1,9 +1,11 @@
 import styled from "styled-components";
 import { GoalInput } from "../component/Goal/GoalInput";
+import { isOpenModal } from "../component/Calender/WriteSpendHabit/SelectCategory/state/selectCategoryAtom";
+import { useAtom } from "jotai";
 
 export function Goal() {
 	// const [isOpen, setIsOpen] = useState<boolean>(false);
-
+	const [isOpenModalState, setIsOpenModalState] = useAtom(isOpenModal);
 	// const handleClick = () => {
 	// 	setIsOpen((prev) => !prev);
 	// };

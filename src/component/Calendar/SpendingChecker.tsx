@@ -1,49 +1,81 @@
 import styled from "styled-components";
 import { ReactComponent as PlusIcon } from "../../assets/icons/ci_add-plus-circle.svg";
 import { useNavigate } from "react-router-dom";
-import { CategoryType } from "../../type/category";
+import { CategoryType, SaveCategoryType } from "../../type/category";
+import { atom, useAtomValue, useSetAtom } from "jotai";
+import { SelectedDateAtom } from "../../pages/CalendarPage";
+import { useQuery } from "react-query";
+import axios from "axios";
+import { useEffect } from "react";
 
 type mockData = {
 	category: string;
 	date: string;
 	usagePlace: string;
 	amount: number;
+	type: string;
 };
 
-export default function SpendingChecker({ totalSpend, mockData }: { totalSpend: string; mockData: mockData[] }) {
+export const RecommendAtom = atom(0);
+
+export default function SpendingChecker({
+	totalSpend,
+	mockData,
+	clickDate
+}: {
+	totalSpend: string;
+	mockData: mockData[];
+	clickDate: string | null;
+}) {
 	const navigate = useNavigate();
+	const filterData = mockData.filter((val) => val.date === clickDate);
+	const selectData = useAtomValue(SelectedDateAtom);
+	const setRecommendAtom = useSetAtom(RecommendAtom);
+	const { data, isLoading } = useQuery(["get"], () => axios.post("http://121.133.3.6:8081/api/goal/getlist"));
+	useEffect(() => {
+		setRecommendAtom(Number(data?.data.data[0]?.amount));
+	}, [data]);
 	return (
 		<Container>
 			<SpendingContainer>
 				<TextContainer>
 					<Recommended>권장 소비 금액</Recommended>
-					<Recommended>150,000원</Recommended>
+					<Recommended>{Number(data?.data.data[0]?.amount).toLocaleString("kr-KR") || 0} </Recommended>
 				</TextContainer>
 				<TextContainer>
 					<SpendingText>총 소비</SpendingText>
 					<SpendingMoney>{Number(totalSpend).toLocaleString("kr-KR")}</SpendingMoney>
 				</TextContainer>
 			</SpendingContainer>
-			<HistoryContainer>
-				<HistoryTitle>권장 소비에서 71%나 덜 썼어요</HistoryTitle>
-				{mockData.map((item, index) => {
-					const category = CategoryType.find((category) => category.type === item.category);
-					return (
-						<CategoryContainer key={index}>
-							<CategoryName>{category?.name}</CategoryName>
-							<UsageContainer>
-								<Text>{item.date}</Text>
-								<Text>{item.usagePlace}</Text>
-							</UsageContainer>
-							<MoneyText>{Number(item.amount).toLocaleString("kr-KR")}</MoneyText>
-						</CategoryContainer>
-					);
-				})}
-			</HistoryContainer>
-			<AddButton onClick={() => navigate("/writeSpendHabit")}>
-				<PlusIcon />
-				소비 기록 추가하기
-			</AddButton>
+			{selectData && (
+				<>
+					<HistoryContainer>
+						<HistoryTitle>권장 소비에서 71%나 덜 썼어요</HistoryTitle>
+						{filterData.map((item, index) => {
+							const category =
+								CategoryType.find((category) => category.type === item.category) ||
+								SaveCategoryType.find((category) => category.type === item.category);
+							return (
+								<CategoryContainer key={index}>
+									<CategoryName>{category?.name}</CategoryName>
+									<UsageContainer>
+										<Text>{item.date}</Text>
+										<Text>{item.usagePlace}</Text>
+									</UsageContainer>
+									<MoneyText isOver={item.type === "EXPENSE"}>
+										{Number(item.amount).toLocaleString("kr-KR")}
+									</MoneyText>
+								</CategoryContainer>
+							);
+						})}
+					</HistoryContainer>
+
+					<AddButton onClick={() => navigate("/writeSpendHabit")}>
+						<PlusIcon />
+						소비 기록 추가하기
+					</AddButton>
+				</>
+			)}
 		</Container>
 	);
 }
@@ -129,8 +161,8 @@ const Text = styled.p`
 	letter-spacing: 0.048px;
 `;
 
-const MoneyText = styled.p`
-	color: #8e918f;
+const MoneyText = styled.p<{ isOver: boolean }>`
+	color: ${({ isOver }) => (isOver ? "#BA1A1AB2" : "#126B56B2")};
 	font-size: 24px;
 	font-weight: 700;
 	line-height: 36px;
