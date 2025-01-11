@@ -10,7 +10,6 @@ export const Layout = () => {
 			<MainWrapper>
 				<Outlet />
 			</MainWrapper>
-			{/* <NavigationBar /> */}
 		</AppWrapper>
 	);
 };
@@ -19,10 +18,11 @@ const AppWrapper = styled.div`
 	width: 400px;
 	height: 100vh;
 	margin: 0 auto;
-	border: 1px solid lightgray;
+	/* border: 1px solid lightgray; */
 	display: flex;
 	flex-direction: column;
 	position: relative;
+	/* background: yellow; */
 `;
 
 const MainWrapper = styled.div`

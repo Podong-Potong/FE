@@ -122,11 +122,6 @@ const StatusContainer = styled.p`
 	line-height: 21px;
 `;
 
-const PlusContainer = styled.div`
-	display: flex;
-	cursor: pointer;
-`;
-
 const CountText = styled.p`
 	margin-top: 0.2rem;
 `;

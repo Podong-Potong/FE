@@ -43,9 +43,17 @@ const GlobalStyles = createGlobalStyle`
         text-decoration: none;
         color: inherit;
     }
+
     *{
         box-sizing: border-box;
     }
+
+    body{
+        margin: 0;
+        padding: 0;
+        background-color: #fff;
+    }    
+
     input, textarea { 
       -moz-user-select: auto;
       -webkit-user-select: auto;
@@ -62,10 +70,6 @@ const GlobalStyles = createGlobalStyle`
       padding: 0;
       cursor: pointer;
     }
-
-    body{
-      white-space: pre-wrap; 
-    }    
 `;
 
 export default GlobalStyles;

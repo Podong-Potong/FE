@@ -2,16 +2,14 @@ import styled from "styled-components";
 
 interface HeaderProps {
 	leftIcon?: React.ReactNode;
-	rightIcon?: React.ReactNode;
 	logo?: React.ReactNode;
 }
 
-export const Header = ({ leftIcon, rightIcon, logo }: HeaderProps) => {
+export const Header = ({ leftIcon, logo }: HeaderProps) => {
 	return (
 		<Container>
 			{leftIcon && <IconContainer>{leftIcon}</IconContainer>}
 			{logo && <LogoContainer>{logo}</LogoContainer>}
-			{rightIcon && leftIcon && <IconContainer>{rightIcon}</IconContainer>}
 		</Container>
 	);
 };
