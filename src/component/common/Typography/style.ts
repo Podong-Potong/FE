@@ -7,8 +7,9 @@ const BaseTypography = styled.div`
 `;
 
 export const H5 = styled(BaseTypography)`
-	font-size: 17.72px;
+	font-size: 24px;
 	font-weight: 700;
+	line-height: 36px;
 `;
 
 export const H6 = styled(BaseTypography)`
@@ -35,8 +36,10 @@ export const Button = styled(BaseTypography)`
 `;
 
 export const Body1 = styled(BaseTypography)`
-	font-size: 15.14px;
-	font-weight: 700;
+	font-size: 16px;
+	font-weight: 600;
+	line-height: 24px;
+	letter-spacing: 0.005em;
 `;
 
 export const Body2 = styled(BaseTypography)`

@@ -62,6 +62,10 @@ const GlobalStyles = createGlobalStyle`
       padding: 0;
       cursor: pointer;
     }
+
+    body{
+      white-space: pre-wrap; 
+    }    
 `;
 
 export default GlobalStyles;

@@ -1,7 +1,10 @@
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
+
 import pigImage from "../../assets/images/pig.png";
 
 export function NoProgressCard() {
+	const navigate = useNavigate();
 	return (
 		<Container>
 			<PigImage />
@@ -9,7 +12,7 @@ export function NoProgressCard() {
 			<Description>
 				통장 살찌우기 챌린지 같이하고 <br /> 행운 복권 받아가세요🍀
 			</Description>
-			<StartButton>챌린지 시작하기</StartButton>
+			<StartButton onClick={() => navigate("/startChallenge")}>챌린지 시작하기</StartButton>
 		</Container>
 	);
 }
@@ -21,11 +24,12 @@ const Container = styled.div`
 	align-items: center;
 	gap: 0.8rem;
 	margin-top: 1rem;
-	width: 22.625rem;
+	width: 100%;
 	height: 22rem;
 	border-radius: 16px;
 	background-color: #fff; /* 배경 색상 추가 */
 	filter: drop-shadow(0px 0px 12px var(--Schemes-Surface-Dim, #d5dbd7));
+	margin: 0 auto;
 `;
 
 const PigImage = styled.div`
@@ -52,7 +56,7 @@ const Description = styled.p`
 
 const StartButton = styled.button`
 	display: flex;
-	width: 341px;
+	width: 85%;
 	padding: 12px 20px;
 	justify-content: center;
 	align-items: center;
