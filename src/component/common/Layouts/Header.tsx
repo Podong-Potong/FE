@@ -1,9 +1,17 @@
 import styled from "styled-components";
 
-export const Header = () => {
+interface HeaderProps {
+	leftIcon?: React.ReactNode;
+	rightIcon?: React.ReactNode;
+	logo?: React.ReactNode;
+}
+
+export const Header = ({ leftIcon, rightIcon, logo }: HeaderProps) => {
 	return (
 		<Container>
-			<LogoSample />
+			{leftIcon && <IconContainer>{leftIcon}</IconContainer>}
+			{logo && <LogoContainer>{logo}</LogoContainer>}
+			{rightIcon && leftIcon && <IconContainer>{rightIcon}</IconContainer>}
 		</Container>
 	);
 };
@@ -13,13 +21,24 @@ const Container = styled.header`
 	top: 0;
 	width: 100%;
 	height: 4rem;
-	padding: 1rem;
+	padding: 0.5rem 0;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 	background-color: white;
 	z-index: 999;
 `;
 
-const LogoSample = styled.div`
+const IconContainer = styled.div`
+	display: flex;
+	justify-content: center;
+	cursor: pointer;
+`;
+
+const LogoContainer = styled.div`
 	width: 36px;
 	height: 36px;
-	background: #d9d9d9;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 `;
