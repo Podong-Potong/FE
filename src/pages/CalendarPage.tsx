@@ -113,6 +113,7 @@ export function CalendarPage() {
 						/>
 					</CalendarContainer>
 					<SpendingChecker totalSpend={totalSpend} mockData={data?.data} />
+					<NavigationBar />
 				</Container>
 			</>
 		)
@@ -159,10 +160,6 @@ const CountText = styled.p`
 `;
 
 const StyledCalendar = styled(Calendar)`
-	.react-calendar {
-		border: none !important;
-	}
-
 	.react-calendar__navigation {
 		width: 60%;
 		span {
