@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import { createBrowserRouter } from "react-router-dom";
 import { NamedLazy } from "../utils/NamedLazy";
 import { Layout } from "../component/common/Layouts/Layouts";
+import { Challenge } from "../pages/Challenge";
 
 // 동적으로 로드할 페이지
 const Main = NamedLazy(() => import("../pages/Main"), "Main");
@@ -42,6 +43,14 @@ export const router = createBrowserRouter([
 				element: (
 					<Suspense fallback={<div>Loading...</div>}>
 						<MyPage />
+					</Suspense>
+				)
+			},
+			{
+				path: "/challenge",
+				element: (
+					<Suspense fallback={<div>Loading...</div>}>
+						<Challenge />
 					</Suspense>
 				)
 			}
