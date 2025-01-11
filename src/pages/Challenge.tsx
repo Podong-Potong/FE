@@ -1,13 +1,14 @@
 import styled from "styled-components";
-import BarCharts from "../component/common/Charts/BarCharts";
 import PieChallenge from "../component/Challenge/PieChallenge";
 import BarChallenge from "../component/Challenge/BarChallenge";
+import ChallengeHistory from "../component/Challenge/ChallengeHistory";
 
 export function Challenge() {
 	return (
 		<Container>
 			<PieChallenge />
 			<BarChallenge />
+			<ChallengeHistory />
 		</Container>
 	);
 }
