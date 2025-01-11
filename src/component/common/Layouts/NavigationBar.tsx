@@ -41,7 +41,7 @@ export const NavigationBar = () => {
 							}}
 						>
 							<menu.icon />
-							<Typography color="neutral60" typoSize="Body1">
+							<Typography color={isActive ? "primary60": "neutral60"} typoSize="Body1">
 								{menu.name}
 							</Typography>
 						</MenuItem>
