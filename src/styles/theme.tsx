@@ -24,6 +24,7 @@ export const theme = {
 	neutral50: "#747875",
 	neutral40: "#5C5F5D",
 	neutral00: "#fff",
+	neutral100: "#000",
 
 	//Neutral Varient Colors
 	neutralVarient98: "#F2FCF6",

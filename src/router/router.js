@@ -9,6 +9,7 @@ const Main = NamedLazy(() => import("../pages/Main"), "Main");
 const Calendar = NamedLazy(() => import("../pages/Calendar"), "Calendar");
 const Reward = NamedLazy(() => import("../pages/Reward"), "Reward");
 const MyPage = NamedLazy(() => import("../pages/MyPage"), "MyPage");
+const StartChallenge = NamedLazy(() => import("../pages/StartChallenge"), "StartChallenge");
 
 export const router = createBrowserRouter([
 	{
@@ -47,10 +48,10 @@ export const router = createBrowserRouter([
 				)
 			},
 			{
-				path: "/challenge",
+				path: "/startChallenge",
 				element: (
 					<Suspense fallback={<div>Loading...</div>}>
-						<Challenge />
+						<StartChallenge />
 					</Suspense>
 				)
 			}
