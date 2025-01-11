@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Calendar from "react-calendar";
 import styled from "styled-components";
 import "react-calendar/dist/Calendar.css";
@@ -8,6 +8,9 @@ import { ReactComponent as CloverIcon } from "../assets/icons/clover.svg";
 import SpendingChecker from "../component/Calendar/SpendingChecker";
 import { Link } from "react-router-dom";
 import { NavigationBar } from "../component/common/Layouts/NavigationBar";
+import axios from "axios";
+import { useQuery } from "react-query";
+import { atom, useAtom } from "jotai";
 
 const mockData = [
 	{ date: "2025-01-06", status: "failure" },
@@ -21,7 +24,30 @@ const mockData = [
 ];
 
 export function CalendarPage() {
+	const [hasFetched, setHasFetched] = useState(false);
+
+	const { data, isLoading } = useQuery(
+		["spendingList"],
+		() =>
+			axios
+				.post("http://121.133.3.6:8081/api/spending/getlist", {
+					year: 2025,
+					month: 1
+				})
+				.then((response) => response.data),
+		{
+			enabled: !hasFetched,
+			onSuccess: () => {
+				setHasFetched(true);
+			}
+		}
+	);
 	const [selectedDate, setSelectedDate] = useState<string | null>(null);
+
+	const totalSpend = data?.data
+		?.filter((val: { type: string }) => val.type === "EXPENSE")
+		.filter((val: { date: string | undefined }) => val.date === selectedDate)
+		.reduce((acc: number, cur: { amount: number }) => acc + cur.amount, 0);
 
 	const getDateStatus = (date: any) => {
 		const found = mockData.find((item) => item.date === date.toISOString().split("T")[0]);
@@ -29,7 +55,8 @@ export function CalendarPage() {
 	};
 
 	const handleDateClick = (date: Date) => {
-		setSelectedDate(date.toISOString().split("T")[0]);
+		const formattedDate = moment(date).format("YYYY-MM-DD");
+		setSelectedDate(formattedDate);
 	};
 
 	const getClassNameForTile = (date: Date) => {
@@ -39,51 +66,56 @@ export function CalendarPage() {
 	};
 
 	return (
-		<Container>
-			<CalendarContainer>
-				<Header>
-					<CounterContainer>
-						<StatusContainer>
-							<TriangleWarningIcon />
-							<CountText>{mockData.filter((item) => item.status === "failure").length}</CountText>
-						</StatusContainer>
-						<StatusContainer>
-							<CloverIcon />
-							<CountText>{mockData.filter((item) => item.status === "success").length}</CountText>
-						</StatusContainer>
-					</CounterContainer>
-					<Link to="/calendar/goal">
-						<PlusButton>월 목표 소비액</PlusButton>
-					</Link>
-				</Header>
-				<StyledCalendar
-					tileContent={({ date }) => {
-						const status = getDateStatus(date);
-						return (
-							<TileContent>
-								<IconContainer>
-									{status === "failure" && <TriangleWarningIcon />}
-									{status === "success" && <CloverIcon />}
-								</IconContainer>
-								<DateContainer
-									isToday={moment(date).isSame(moment(), "day")}
-									isSuccess={status === "success" ? true : status === "failure" ? false : null}
-								>
-									{moment(date).format("DD")}
-								</DateContainer>
-							</TileContent>
-						);
-					}}
-					tileClassName={({ date }) => getClassNameForTile(date)}
-					onClickDay={handleDateClick}
-					next2Label={null}
-					prev2Label={null}
-					formatDay={() => ""}
-				/>
-			</CalendarContainer>
-			<SpendingChecker />
-			<NavigationBar />
-		</Container>
+		!isLoading && (
+			<>
+				<Container>
+					<CalendarContainer>
+						<Header>
+							<CounterContainer>
+								<StatusContainer>
+									<TriangleWarningIcon />
+									<CountText>{mockData.filter((item) => item.status === "failure").length}</CountText>
+								</StatusContainer>
+								<StatusContainer>
+									<CloverIcon />
+									<CountText>{mockData.filter((item) => item.status === "success").length}</CountText>
+								</StatusContainer>
+							</CounterContainer>
+							<Link to="/calendar/goal">
+								<PlusButton>월 목표 소비액</PlusButton>
+							</Link>
+						</Header>
+						<StyledCalendar
+							tileContent={({ date }) => {
+								const status = getDateStatus(date);
+								return (
+									<TileContent>
+										<IconContainer>
+											{status === "failure" && <TriangleWarningIcon />}
+											{status === "success" && <CloverIcon />}
+										</IconContainer>
+										<DateContainer
+											isToday={moment(date).isSame(moment(), "day")}
+											isSuccess={
+												status === "success" ? true : status === "failure" ? false : null
+											}
+										>
+											{moment(date).format("DD")}
+										</DateContainer>
+									</TileContent>
+								);
+							}}
+							tileClassName={({ date }) => getClassNameForTile(date)}
+							onClickDay={handleDateClick}
+							next2Label={null}
+							prev2Label={null}
+							formatDay={() => ""}
+						/>
+					</CalendarContainer>
+					<SpendingChecker totalSpend={totalSpend} mockData={data?.data} />
+				</Container>
+			</>
+		)
 	);
 }
 

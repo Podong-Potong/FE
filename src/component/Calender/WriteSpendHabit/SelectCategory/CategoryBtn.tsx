@@ -7,15 +7,16 @@ export default function CategoryBtn({
 	onClick,
 	isSelect
 }: {
-	icon: string;
+	icon?: string;
 	name: string;
-	onClick: () => void;
-	isSelect: boolean;
+	onClick?: () => void;
+	isSelect?: boolean;
 }) {
+	console.log(";;test", name);
 	return (
 		<S.CategoryBtnWrapper onClick={onClick} isSelect={isSelect}>
 			<Row gap={12} horizonAlign="center" verticalAlign="center">
-				{icon}
+				{icon && icon}
 				<Typography color="neutral100" typoSize="Subtitle3">
 					{name}
 				</Typography>

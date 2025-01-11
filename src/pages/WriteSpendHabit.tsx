@@ -1,5 +1,5 @@
 import SpendKindBtn from "../component/Calender/WriteSpendHabit/SpendKindBtn/SpendKindBtn";
-import CustomInput from "../component/common/CustomInput/CustomInput";
+import CustomInput, { inputMoney } from "../component/common/CustomInput/CustomInput";
 import Column from "../component/common/Layouts/Column";
 import Row from "../component/common/Layouts/Row";
 import Typography from "../component/common/Typography/Typography";
@@ -7,9 +7,53 @@ import { ReactComponent as Arrow } from "../assets/icons/common/ci_chevron-right
 import styled from "styled-components";
 import SelectCategory from "../component/Calender/WriteSpendHabit/SelectCategory/SelectCategory";
 import useModalStore from "../component/Calender/WriteSpendHabit/SelectCategory/useModalStore";
+import axios from "axios";
+import { useAtom, useAtomValue } from "jotai";
+import {
+	isOpenModal,
+	selectCategory,
+	selectSpentType
+} from "../component/Calender/WriteSpendHabit/SelectCategory/state/selectCategoryAtom";
+import CategoryBtn from "../component/Calender/WriteSpendHabit/SelectCategory/CategoryBtn";
+import { CategoryType, SaveCategoryType } from "../type/category";
+import { useNavigate } from "react-router-dom";
 
 export const WriteSpendHabit = () => {
-	const { isOpenModal, openModal } = useModalStore();
+	const [isOpenModalState, setIsOpenModalState] = useAtom(isOpenModal);
+	const [selectCategoryAtom, setSelectCategoryAtom] = useAtom(selectCategory);
+	const selectBtn = useAtomValue(selectSpentType);
+	const money = useAtomValue(inputMoney);
+	const navigate = useNavigate();
+
+	const handleData = () => {
+		if (selectBtn === "out") {
+			const selectCategory = CategoryType.find((val) => val.name === selectCategoryAtom);
+			axios
+				.post("http://121.133.3.6:8081/api/spending", {
+					description: "붕어빵",
+					amount: money,
+					category: selectCategory?.type,
+					date: "2025-01-11",
+					type: "EXPENSE"
+				})
+				.then(() => {
+					navigate("/calender");
+				});
+		} else {
+			const selectCategory = SaveCategoryType.find((val) => val.name === selectCategoryAtom);
+			axios
+				.post("http://121.133.3.6:8081/api/spending", {
+					description: "붕어빵",
+					amount: money,
+					category: selectCategory?.type,
+					date: "2025-01-11",
+					type: "INCOME"
+				})
+				.then(() => {
+					navigate("/calender");
+				});
+		}
+	};
 
 	return (
 		<>
@@ -25,7 +69,8 @@ export const WriteSpendHabit = () => {
 					<Typography typoSize="Subtitle3" color="primary60">
 						{"카테고리"}
 					</Typography>
-					<Arrow onClick={() => openModal()} />
+					{selectCategoryAtom && <CategoryBtn key={selectCategoryAtom} name={selectCategoryAtom} />}
+					{selectBtn && <Arrow onClick={() => setIsOpenModalState(true)} />}
 				</Row>
 				<Row gap={10}>
 					<Typography typoSize="Subtitle2" color="neutral60">
@@ -44,12 +89,12 @@ export const WriteSpendHabit = () => {
 					</Typography>
 				</Row>
 			</Column>
-			<WriteSpentBtn>
+			<WriteSpentBtn onClick={() => handleData()}>
 				<Typography typoSize="Button" color="neutral00">
 					{"소비 기록하기"}
 				</Typography>
 			</WriteSpentBtn>
-			{isOpenModal && <SelectCategory />}
+			{isOpenModalState && <SelectCategory />}
 		</>
 	);
 };
