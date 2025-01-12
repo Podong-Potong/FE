@@ -3,9 +3,13 @@ import Row from "../../../common/Layouts/Row";
 import Typography from "../../../common/Typography/Typography";
 import * as S from "./style";
 import { useStartChallengeStore } from "../useStartChallengeStore";
+import { atom, useAtom } from "jotai";
+
+export const increaseAtom = atom("");
 
 export default function IncreaseMoney({ type }: { type: string }) {
 	const SAVEMONEY = ["100", "500", "1,000", "5,000", "10,000"];
+	const [increaseMoneys, setIncreaseMoney] = useAtom(increaseAtom);
 
 	const { challengeStates, increaseMoney } = useStartChallengeStore();
 	return (
@@ -18,6 +22,7 @@ export default function IncreaseMoney({ type }: { type: string }) {
 					onClick={(ev) => {
 						ev.stopPropagation();
 						increaseMoney(type, val);
+						setIncreaseMoney(val);
 					}}
 				>
 					<Typography

@@ -5,7 +5,7 @@ import { useStartChallengeStore } from "../useStartChallengeStore";
 import styled from "styled-components";
 import axios from "axios";
 
-export default function NoSpendMoney({ type }: { type: string }) {
+export default function NoSpendDayMoney({ type }: { type: string }) {
 	const DAYOFWEEK = ["일", "월", "화", "수", "목", "금", "토"];
 	const { challengeStates, toggleDay } = useStartChallengeStore(); // Zustand 상태 사용
 
@@ -16,9 +16,9 @@ export default function NoSpendMoney({ type }: { type: string }) {
 	const handleClick = () => {
 		const dayString = generateDayString();
 		axios.put("http://121.133.3.6:8081/api/challenge", {
-			challengeType: "NO_SPENDING",
-			selectedDaysNoSpending: dayString,
-			selectedDaysWeeklySaving: null,
+			challengeType: "WEEKLY_SAVING",
+			selectedDaysNoSpending: null,
+			selectedDaysWeeklySaving: dayString,
 			startDate: "2025-01-11",
 			yearGoal: null,
 			weekOfMonthGoal: 0
@@ -48,7 +48,7 @@ export default function NoSpendMoney({ type }: { type: string }) {
 					</S.DayofWeek>
 				))}
 			</Row>
-			<SubmitButton onClick={handleClick}>챌린지 시작하기</SubmitButton>
+			{/* <SubmitButton onClick={handleClick}>챌린지 시작하기</SubmitButton> */}
 		</>
 	);
 }

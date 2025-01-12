@@ -12,7 +12,7 @@ const CHALLENGE_NAME = {
 };
 
 export function ProgressCard() {
-	const { data, isLoading, error } = useQuery(
+	const { data } = useQuery(
 		["yearingSaving"],
 		() =>
 			axios.post("http://121.133.3.6:8081/api/challenge").then((response) => {
