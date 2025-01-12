@@ -22,8 +22,7 @@ export const NavigationBar = () => {
 	const menus = [
 		{ name: "홈", path: "/", icon: activeMenu === "/" ? HomeFill : Home },
 		{ name: "소비 달력", path: "/calendar", icon: activeMenu === "/calendar" ? CalendarFill : Calendar },
-		{ name: "리워드", path: "/reward", icon: activeMenu === "/reward" ? LuckFill : Luck },
-		{ name: "마이페이지", path: "/mypage", icon: activeMenu === "/mypage" ? MyPageFill : MyPage }
+		{ name: "리워드", path: "/reward", icon: activeMenu === "/reward" ? LuckFill : Luck }
 	];
 
 	return (
@@ -41,7 +40,7 @@ export const NavigationBar = () => {
 							}}
 						>
 							<menu.icon />
-							<Typography color={isActive ? "primary60": "neutral60"} typoSize="Body1">
+							<Typography color={isActive ? "primary60" : "neutral60"} typoSize="Body1">
 								{menu.name}
 							</Typography>
 						</MenuItem>

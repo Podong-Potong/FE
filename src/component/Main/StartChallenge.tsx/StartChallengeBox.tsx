@@ -12,14 +12,8 @@ import Row from "../../common/Layouts/Row";
 import { Br } from "../../common/Layouts/Br";
 import NoSpendMoney from "./NoSpendMoney/NoSpendMoney";
 import InputMoney from "./InputMoney/InputMoney";
-import InputMoneyYear from "./InputMoney/InputMoneyYear";
-import InputMoneyNumberGame from "./InputMoney/InputMoneyNumberGame";
-import IncreaseMoney, { increaseAtom } from "./IncreaseMoney/IncreaseMoney";
+import IncreaseMoney from "./IncreaseMoney/IncreaseMoney";
 import { useStartChallengeStore } from "./useStartChallengeStore";
-import styled from "styled-components";
-import NoSpendDayMoney from "./NoSpendMoney/NoSpendDayMoney";
-import axios from "axios";
-import { useAtom } from "jotai";
 
 export default function StartChallengeBox() {
 	const [openIndexes, setOpenIndexes] = useState<number[]>([]);
@@ -42,21 +36,13 @@ export default function StartChallengeBox() {
 			title: "1년동안 저축하기 챌린지",
 			subTitle: "1년동안 얼마나 모아볼 수 있을까?!\n자신의 한계를 시험하는 저축 챌린지"
 		}
+		// {
+		// 	type: "calender",
+		// 	icon: Calender,
+		// 	title: "요일별 소비제한 챌린지",
+		// 	subTitle: "과소비하는 특정 요일에 소비제한을 걸어\n절약할 수 있는 챌린지"
+		// }
 	];
-
-	const [firstMoney, setFirstMoeny] = useState(0);
-	const [increaseMoneys, setIncreaseMoney] = useAtom(increaseAtom);
-	const handleChallenge = () => {
-		axios.put("http://121.133.3.6:8081/api/challenge", {
-			challengeType: "SAVING_GAME",
-			selectedDaysNoSpending: null,
-			selectedDaysWeeklySaving: null,
-			startDate: "2025-01-11",
-			startAmount: firstMoney,
-			plusAmount: increaseMoneys,
-			weekOfMonthGoal: 0
-		});
-	};
 	return (
 		<>
 			{challengeData.map((val, index) => {
@@ -91,40 +77,13 @@ export default function StartChallengeBox() {
 											<Typography color="neutral100" typoSize="Body1">
 												{"첫 시작 금액을 얼마로 할까요?"}
 											</Typography>
-											{/* <InputMoneyNumberGame type={val.type} /> */}
-											<S.InputMoneyWrap
-												horizonAlign="distribute"
-												onClick={(ev) => ev.stopPropagation()}
-											>
-												<S.Input
-													type="text"
-													inputMode="numeric"
-													pattern="[0-9]*"
-													onChange={(e) => {
-														const value = e.currentTarget.value.replace(/,/g, "");
-														if (!isNaN(Number(value))) {
-															setFirstMoeny(Number(value));
-														}
-													}}
-													value={firstMoney.toLocaleString("ko-KR")}
-												/>
-												<Typography typoSize="H6_B" color="neutral100">
-													{"원"}
-												</Typography>
-											</S.InputMoneyWrap>
+											<InputMoney type={val.type} />
 										</div>
 										<div>
 											<Typography color="neutral100" typoSize="Body1">
 												{"얼마씩 증액할까요?"}
 											</Typography>
 											<IncreaseMoney type={val.type} />
-											<SubmitButton
-												onClick={() => {
-													handleChallenge();
-												}}
-											>
-												챌린지 시작하기
-											</SubmitButton>
 										</div>
 									</Column>
 								)}
@@ -133,7 +92,7 @@ export default function StartChallengeBox() {
 										<Typography color="neutral100" typoSize="Body1">
 											{"1년동안 얼마를 모아볼까요?"}
 										</Typography>
-										<InputMoneyYear type={val.type} />
+										<InputMoney type={val.type} />
 									</div>
 								)}
 								{val.type === "calender" && (
@@ -143,7 +102,7 @@ export default function StartChallengeBox() {
 												<Typography color="neutral100" typoSize="Body1">
 													{"소비에 제한을 둘 요일을 정해주세요"}
 												</Typography>
-												<NoSpendDayMoney type={val.type} />
+												<NoSpendMoney type={val.type} />
 											</div>
 										</Column>
 										<Typography color="neutral100" typoSize="Body1">
@@ -160,16 +119,3 @@ export default function StartChallengeBox() {
 		</>
 	);
 }
-
-const SubmitButton = styled.button`
-	display: flex;
-	width: 341px;
-	padding: 12px 20px;
-	justify-content: center;
-	align-items: center;
-	gap: 20px;
-	border-radius: 24px;
-	background: var(--Schemes-Primary-Container, #a3f2d8);
-	margin-top: 1rem;
-	cursor: pointer;
-`;

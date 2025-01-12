@@ -3,10 +3,10 @@ import { ReactComponent as FireWorksIcon } from "../../assets/icons/fireworks.sv
 import { ReactComponent as WarningIcon } from "../../assets/icons/warning.svg";
 
 const mockData = [
-	{ id: 1, spending: 0 },
-	{ id: 2, spending: 15000 },
-	{ id: 3, spending: 0 },
-	{ id: 4, spending: 25000 }
+	{ id: 1, date: "2025-01-12", spending: 0 },
+	{ id: 2, date: "2025-01-11", spending: 15000 },
+	{ id: 3, date: "2025-01-10", spending: 0 },
+	{ id: 4, date: "2025-01-09", spending: 25000 }
 ];
 
 export default function ChallengeHistory() {
@@ -16,7 +16,7 @@ export default function ChallengeHistory() {
 				<HistoryContainer isZero={data.spending === 0}>
 					{data.spending === 0 ? <FireWorksIcon /> : <WarningIcon />}
 					<TextContainer>
-						<Date>2025-01-11 (월)</Date>
+						<Date>{data.date}</Date>
 						<MoneyHistory isZero={data.spending === 0}>
 							소비내역 {data.spending.toLocaleString("ko-KR")}원
 						</MoneyHistory>
