@@ -18,6 +18,10 @@ import CategoryBtn from "../component/Calender/WriteSpendHabit/SelectCategory/Ca
 import { CategoryType, SaveCategoryType } from "../type/category";
 import { useNavigate } from "react-router-dom";
 import { SelectedDateAtom } from "./CalendarPage";
+<<<<<<< Updated upstream
+=======
+import { useState } from "react";
+>>>>>>> Stashed changes
 
 export const WriteSpendHabit = () => {
 	const [isOpenModalState, setIsOpenModalState] = useAtom(isOpenModal);
@@ -26,13 +30,17 @@ export const WriteSpendHabit = () => {
 	const money = useAtomValue(inputMoney);
 	const navigate = useNavigate();
 	const SelectedDate = useAtomValue(SelectedDateAtom);
+<<<<<<< Updated upstream
+=======
+	const [inputs, setInput] = useState("");
+>>>>>>> Stashed changes
 
 	const handleData = () => {
 		if (selectBtn === "out") {
 			const selectCategory = CategoryType.find((val) => val.name === selectCategoryAtom);
 			axios
 				.post("http://121.133.3.6:8081/api/spending", {
-					description: "붕어빵",
+					description: inputs,
 					amount: money,
 					category: selectCategory?.type,
 					date: SelectedDate,
@@ -87,7 +95,9 @@ export const WriteSpendHabit = () => {
 						{"거래 장소"}
 					</Typography>
 					<Typography typoSize="Body1" color="neutral60">
-						{"붕어빵"}
+						<InputContainer>
+							<Input type="text" onChange={(e) => setInput(e.currentTarget.value)} />
+						</InputContainer>
 					</Typography>
 				</Row>
 			</Column>
@@ -108,4 +118,18 @@ const WriteSpentBtn = styled.button`
 	position: absolute;
 	bottom: 72px;
 	background-color: #126b56;
+`;
+const InputContainer = styled.div`
+	display: flex;
+	align-items: center;
+	border-bottom: 1px solid #8e918f;
+	width: 100%;
+	height: 1.5rem;
+`;
+
+const Input = styled.input`
+	flex: 1;
+	border: none;
+	outline: none;
+	font-size: 14px;
 `;

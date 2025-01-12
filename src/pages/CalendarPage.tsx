@@ -6,23 +6,19 @@ import moment from "moment";
 import { ReactComponent as TriangleWarningIcon } from "../assets/icons/ci_triangle-warning.svg";
 import { ReactComponent as CloverIcon } from "../assets/icons/clover.svg";
 import SpendingChecker, { RecommendAtom } from "../component/Calendar/SpendingChecker";
+
+import { Link } from "react-router-dom";
 import { NavigationBar } from "../component/common/Layouts/NavigationBar";
 import axios from "axios";
 import { useQuery } from "react-query";
 import { atom, useAtom, useAtomValue } from "jotai";
 
-const mockData = [
-	{ date: "2025-01-06", status: "failure" },
-	{ date: "2025-01-08", status: "success" },
-	{ date: "2025-01-13", status: "success" },
-	{ date: "2025-01-15", status: "failure" },
-	{ date: "2025-01-20", status: "failure" },
-	{ date: "2025-01-22", status: "failure" },
-	{ date: "2025-01-27", status: "failure" },
-	{ date: "2025-01-29", status: "success" }
-];
+type TEMP = {
+	date: string;
+	statue: "success" | "failure";
+};
 export const SelectedDateAtom = atom<string | null>("");
-
+export const MainDataAtom = atom<TEMP>();
 export function CalendarPage() {
 	const [hasFetched, setHasFetched] = useState(false);
 	const [selectedDate, setSelectedDate] = useAtom(SelectedDateAtom);
@@ -35,7 +31,10 @@ export function CalendarPage() {
 					year: 2025,
 					month: 1
 				})
-				.then((response) => response.data),
+				.then((response) => {
+					console.log("데이터 확인:", response.data);
+					return response.data;
+				}),
 		{
 			enabled: !hasFetched,
 			onSuccess: () => {
@@ -50,16 +49,15 @@ export function CalendarPage() {
 			aggregatedData[item.date] = 0;
 		}
 
-		if (item.type === "INCOME") {
+		if (item.type === "EXPENSE") {
 			aggregatedData[item.date] += item.amount;
-		} else {
-			aggregatedData[item.date] -= item.amount;
 		}
 	});
 
 	const transformedData = Object.entries(aggregatedData).map(([date, amount]) => ({
 		date,
-		status: (amount as number) >= recommendAtom ? "success" : "failure"
+
+		status: (amount as number) < recommendAtom / 31 ? "success" : "failure"
 	}));
 
 	const totalSpend = data?.data
@@ -68,18 +66,19 @@ export function CalendarPage() {
 		.reduce((acc: number, cur: { amount: number }) => acc + cur.amount, 0);
 
 	const handleDateClick = (date: Date) => {
-		const formattedDate = moment(date).format("YYYY-MM-DD");
+		const formattedDate = moment(date).local().format("YYYY-MM-DD");
 		setSelectedDate(formattedDate);
 	};
 
-	const getDateStatus = (date: any) => {
-		const found = transformedData.find((item: any) => item.date === date.toISOString().split("T")[0]);
+	const getDateStatus = (date: Date) => {
+		const formattedDate = moment(date).format("YYYY-MM-DD"); // Date 객체를 YYYY-MM-DD로 포맷
+		const found = transformedData.find((item: any) => item.date === formattedDate);
 		return found ? found.status : null;
 	};
 
 	const getClassNameForTile = (date: Date) => {
 		const status = getDateStatus(date);
-		if (!selectedDate || selectedDate !== date.toISOString().split("T")[0]) return "";
+		if (!selectedDate || selectedDate !== date.toLocaleString().split("T")[0]) return "";
 		return status === "failure" ? "failure-active" : status === "success" ? "success-active" : "";
 	};
 
@@ -94,14 +93,12 @@ export function CalendarPage() {
 								<StatusContainer>
 									{/* {mockData.status === "failure"} */}
 									<TriangleWarningIcon />
-									{/* error */}
 									<CountText>
 										{transformedData.filter((item) => item.status === "failure").length}
 									</CountText>
 								</StatusContainer>
 								<StatusContainer>
 									<CloverIcon />
-									{/* posi */}
 									<CountText>
 										{transformedData.filter((item) => item.status === "success").length}
 									</CountText>
@@ -131,7 +128,15 @@ export function CalendarPage() {
 									</TileContent>
 								);
 							}}
-							tileClassName={({ date }) => getClassNameForTile(date)}
+							tileClassName={({ date }) => {
+								const formattedDate = moment(date).format("YYYY-MM-DD");
+								const status = getDateStatus(date); // 동일 포맷 사용
+								return status === "failure"
+									? "failure-active"
+									: status === "success"
+									? "success-active"
+									: "";
+							}}
 							onClickDay={handleDateClick}
 							next2Label={null}
 							prev2Label={null}

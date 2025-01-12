@@ -6,7 +6,7 @@ export function Reward() {
 	return (
 		<Container>
 			<Title>
-				@@@님의 소비 실천으로 모인 <br /> 행운 복권이 벌써 7장이네요!
+				이수정님의 소비 실천으로 모인 <br /> 행운 복권이 벌써 7장이네요!
 			</Title>
 			<Wrapper>
 				<LuckyWrapper />

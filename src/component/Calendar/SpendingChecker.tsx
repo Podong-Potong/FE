@@ -50,7 +50,11 @@ export default function SpendingChecker({
 			{selectData && (
 				<>
 					<HistoryContainer>
+<<<<<<< Updated upstream
 						<HistoryTitle>권장 소비에서 71%나 덜 썼어요</HistoryTitle>
+=======
+						{/* <HistoryTitle>권장 소비에서 71%나 덜 썼어요</HistoryTitle> */}
+>>>>>>> Stashed changes
 						{filterData.map((item, index) => {
 							const category =
 								CategoryType.find((category) => category.type === item.category) ||

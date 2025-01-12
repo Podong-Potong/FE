@@ -2,6 +2,8 @@ import ConsumHistoryBox from "../component/Main/ConsumHistoryBox.tsx/ConsumHisto
 import Column from "../component/common/Layouts/Column";
 import { ProgressCard } from "../component/Home/ProgressCard";
 import { NavigationBar } from "../component/common/Layouts/NavigationBar";
+import { useAtom } from "jotai";
+import { MainDataAtom } from "./CalendarPage";
 
 export function Main() {
 	return (
