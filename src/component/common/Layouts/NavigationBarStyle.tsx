@@ -1,13 +1,12 @@
 import styled from "styled-components";
 
 export const MenuList = styled.ul`
-	width: 100%;
-	height: 100px;
+	height: 90px;
 	background-color: white;
 	position: fixed;
 	bottom: 0px;
 	display: flex;
-	justify-content: center;
+	justify-content: space-between;
 	align-items: center;
 	z-index: 999;
 `;

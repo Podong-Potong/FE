@@ -18,10 +18,7 @@ import CategoryBtn from "../component/Calender/WriteSpendHabit/SelectCategory/Ca
 import { CategoryType, SaveCategoryType } from "../type/category";
 import { useNavigate } from "react-router-dom";
 import { SelectedDateAtom } from "./CalendarPage";
-<<<<<<< Updated upstream
-=======
 import { useState } from "react";
->>>>>>> Stashed changes
 
 export const WriteSpendHabit = () => {
 	const [isOpenModalState, setIsOpenModalState] = useAtom(isOpenModal);
@@ -30,10 +27,8 @@ export const WriteSpendHabit = () => {
 	const money = useAtomValue(inputMoney);
 	const navigate = useNavigate();
 	const SelectedDate = useAtomValue(SelectedDateAtom);
-<<<<<<< Updated upstream
-=======
+
 	const [inputs, setInput] = useState("");
->>>>>>> Stashed changes
 
 	const handleData = () => {
 		if (selectBtn === "out") {

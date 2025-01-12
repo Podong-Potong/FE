@@ -10,6 +10,7 @@ export function Challenge() {
 			<PieChallenge />
 			<BarChallenge />
 			<ChallengeHistory />
+			<NavigationBar />
 		</Container>
 	);
 }

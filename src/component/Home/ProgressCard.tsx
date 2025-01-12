@@ -3,6 +3,7 @@ import PieCharts from "../common/Charts/PieCharts";
 import axios from "axios";
 import { useQuery } from "react-query";
 import { NoProgressCard } from "./NoProgressCard";
+import { useNavigate } from "react-router-dom";
 
 const CHALLENGE_NAME = {
 	noSpendRate: "무지출 챌린지",
@@ -12,6 +13,8 @@ const CHALLENGE_NAME = {
 };
 
 export function ProgressCard() {
+	const naviagate = useNavigate();
+
 	const { data } = useQuery(
 		["yearingSaving"],
 		() =>
@@ -45,7 +48,7 @@ export function ProgressCard() {
 			{challenges.length > 0 ? (
 				<ChallengeList>
 					{challenges.map((challenge, index) => (
-						<Container key={index}>
+						<Container key={index} onClick={() => naviagate("/challenge")}>
 							<ChallengeTitle>
 								이수정님의 <br /> {challenge.name}
 							</ChallengeTitle>
@@ -69,7 +72,6 @@ export function ProgressCard() {
 const Wrapper = styled.div`
 	display: flex;
 	flex-direction: column;
-	width: 100%;
 `;
 
 const Title = styled.h1`
@@ -77,6 +79,19 @@ const Title = styled.h1`
 	font-size: 24px;
 	font-weight: 700;
 	line-height: 36px;
+`;
+
+const Container = styled.div`
+	margin-top: 1rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	width: 13.3125rem;
+	height: 17.5rem;
+	padding: 0.75rem;
+	border-radius: 6px;
+	background: linear-gradient(180deg, #a3f2d8 0%, #87d6bc 100%);
+	cursor: pointer;
 `;
 
 const ChallengeList = styled.div`
@@ -104,22 +119,10 @@ const ChallengeList = styled.div`
 	}
 `;
 
-const Container = styled.div`
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-	width: 13.3125rem;
-	height: 17.5rem;
-	padding: 0.75rem;
-	border-radius: 6px;
-	background: linear-gradient(180deg, #a3f2d8 0%, #87d6bc 100%);
-`;
-
 const ChallengeTitle = styled.h2`
 	font-size: 20px;
 	font-weight: 600;
 	line-height: 25px;
-	white-space: nowrap;
 `;
 
 const DayContainer = styled.div`
