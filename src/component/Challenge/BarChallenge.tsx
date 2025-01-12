@@ -13,7 +13,7 @@ export default function BarChallenge() {
 	return (
 		<>
 			<Description>
-				@@@님은 월요일에 챌린지를 <br /> 성공 시킨 적이 더 많아요
+				이수정님은 월요일에 챌린지를 <br /> 성공 시킨 적이 더 많아요
 			</Description>
 			<BarCharts data={data} xAxisDataKey="day" barData={barData} width={400} height={300} />
 		</>

@@ -35,13 +35,13 @@ export default function StartChallengeBox() {
 			icon: Arrow,
 			title: "1년동안 저축하기 챌린지",
 			subTitle: "1년동안 얼마나 모아볼 수 있을까?!\n자신의 한계를 시험하는 저축 챌린지"
-		},
-		{
-			type: "calender",
-			icon: Calender,
-			title: "요일별 소비제한 챌린지",
-			subTitle: "과소비하는 특정 요일에 소비제한을 걸어\n절약할 수 있는 챌린지"
 		}
+		// {
+		// 	type: "calender",
+		// 	icon: Calender,
+		// 	title: "요일별 소비제한 챌린지",
+		// 	subTitle: "과소비하는 특정 요일에 소비제한을 걸어\n절약할 수 있는 챌린지"
+		// }
 	];
 	return (
 		<>

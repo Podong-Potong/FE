@@ -1,17 +1,19 @@
 import styled from "styled-components";
 import PieCharts from "../common/Charts/PieCharts";
+import { NavigationBar } from "../common/Layouts/NavigationBar";
 
 export default function PieChallenge() {
 	return (
 		<>
-			<Description>@@@님의 무지출 챌린지</Description>
+			<Description>이수정님의 무지출 챌린지</Description>
 			<DayContainer>
-				<DDay>D+60</DDay>
+				<DDay>D+100</DDay>
 				<Day>매주 월, 수</Day>
 			</DayContainer>
 			<PieChartsContainer>
-				<PieCharts progress={75} width={302} height={302} />
+				<PieCharts progress={100} width={302} height={302} />
 			</PieChartsContainer>
+			<NavigationBar />
 		</>
 	);
 }
