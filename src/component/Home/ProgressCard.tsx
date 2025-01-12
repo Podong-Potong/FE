@@ -72,6 +72,7 @@ export function ProgressCard() {
 const Wrapper = styled.div`
 	display: flex;
 	flex-direction: column;
+	width: 100%;
 `;
 
 const Title = styled.h1`
