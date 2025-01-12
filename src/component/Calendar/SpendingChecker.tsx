@@ -7,11 +7,12 @@ import { SelectedDateAtom } from "../../pages/CalendarPage";
 import { useQuery } from "react-query";
 import axios from "axios";
 import { useEffect } from "react";
+import Column from "../common/Layouts/Column";
 
 type mockData = {
 	category: string;
 	date: string;
-	usagePlace: string;
+	description: string;
 	amount: number;
 	type: string;
 };
@@ -35,6 +36,7 @@ export default function SpendingChecker({
 	useEffect(() => {
 		setRecommendAtom(Number(data?.data.data[0]?.amount));
 	}, [data]);
+
 	return (
 		<Container>
 			<SpendingContainer>
@@ -58,12 +60,12 @@ export default function SpendingChecker({
 								SaveCategoryType.find((category) => category.type === item.category);
 							return (
 								<CategoryContainer key={index}>
-									<CategoryName>{category?.name}</CategoryName>
-									<UsageContainer>
+									<CategoryName style={{ width: "150px" }}>{category?.name}</CategoryName>
+									<Column gap={3.5}>
 										<Text>{item.date}</Text>
-										<Text>{item.usagePlace}</Text>
-									</UsageContainer>
-									<MoneyText isOver={item.type === "EXPENSE"}>
+										<Text>{item.description}</Text>
+									</Column>
+									<MoneyText isOver={item.type === "EXPENSE"} style={{ width: "100px" }}>
 										{Number(item.amount).toLocaleString("kr-KR")}
 									</MoneyText>
 								</CategoryContainer>

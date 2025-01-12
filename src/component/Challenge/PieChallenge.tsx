@@ -1,60 +1,48 @@
 import styled from "styled-components";
-import { ReactComponent as FireWorksIcon } from "../../assets/icons/fireworks.svg";
-import { ReactComponent as WarningIcon } from "../../assets/icons/warning.svg";
+import PieCharts from "../common/Charts/PieCharts";
 
-const mockData = [
-	{ id: 1, date: "2025-01-12", spending: 0 },
-	{ id: 2, date: "2025-01-11", spending: 15000 },
-	{ id: 3, date: "2025-01-10", spending: 0 },
-	{ id: 4, date: "2025-01-09", spending: 25000 }
-];
-
-export default function ChallengeHistory() {
+export default function PieChallenge() {
 	return (
-		<Container>
-			{mockData.map((data) => (
-				<HistoryContainer isZero={data.spending === 0}>
-					{data.spending === 0 ? <FireWorksIcon /> : <WarningIcon />}
-					<TextContainer>
-						<Date>{data.date}</Date>
-						<MoneyHistory isZero={data.spending === 0}>
-							소비내역 {data.spending.toLocaleString("ko-KR")}원
-						</MoneyHistory>
-					</TextContainer>
-				</HistoryContainer>
-			))}
-		</Container>
+		<>
+			<Description>이수정님의 무지출 챌린지</Description>
+			<DayContainer>
+				<DDay>D+100</DDay>
+				<Day>매주 월, 수</Day>
+			</DayContainer>
+			<PieChartsContainer>
+				<PieCharts progress={100} width={302} height={302} />
+			</PieChartsContainer>
+		</>
 	);
 }
 
-const Container = styled.div`
-	display: flex;
-	flex-direction: column;
-`;
-
-const HistoryContainer = styled.div<{ isZero: boolean }>`
-	display: flex;
-	align-items: center;
-	background-color: ${(props) => (props.isZero ? "#fff" : "#FFDAD6")};
-`;
-
-const TextContainer = styled.div`
-	display: flex;
-	flex-direction: column;
-	gap: 0.5rem;
-`;
-
-const Date = styled.p`
-	color: #5c5f5d;
-	font-size: 12px;
-	font-weight: 600;
-	letter-spacing: 0.15px;
-`;
-
-const MoneyHistory = styled.p<{ isZero: boolean }>`
-	color: ${(props) => (props.isZero ? "#126b56" : "#BA1A1A")};
-	text-overflow: ellipsis;
-	font-size: 20px;
+const Description = styled.h1`
+	font-size: 24px;
 	font-weight: 700;
-	line-height: 25px;
+	line-height: 36px; /* 150% */
+`;
+
+const DayContainer = styled.div`
+	display: flex;
+	gap: 1rem;
+`;
+
+const DDay = styled.p`
+	color: #126b56;
+	font-size: 16px;
+	font-weight: 400;
+	line-height: 24px; /* 150% */
+`;
+
+const Day = styled.p`
+	color: #126b56;
+	font-size: 16px;
+	font-weight: 600;
+	line-height: 24px; /* 150% */
+`;
+
+const PieChartsContainer = styled.div`
+	display: flex;
+	justify-content: center;
+	margin-bottom: 1rem;
 `;
